@@ -42,8 +42,10 @@ const variableTypeAlias : typeAlias = {
 }
 
 interface interfaceTemplate {
-  
+
 }
+
+type union = number | string 
 
 const functionWithParametersTyped = (object : {prop1 : string, prop2 : {X :number, y : number}}) : number =>{
   return 2
