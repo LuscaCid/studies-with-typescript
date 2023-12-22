@@ -13,4 +13,3 @@ console.log(array2);
 const array3 = [];
 const emptyArray = [];
 console.log(typeof array3, "tipo");
-
