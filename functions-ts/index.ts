@@ -173,10 +173,11 @@ unknownType('sdasd')
 
 //simplesmente o never é quando a funcao nao retorna nunca, n eh que ela nao retorne nada, é que ela de fato nunca vai retornar ent basicamente é em caso de throw de erro, lancamentos e loops infinitos que realmente nao retornam da funcao
 
-const throwError = (error : {
-    message : string,
-    statusCode : number
-}) : never => {
+interface errorInterface {
+ message : string
+ statusCode : number
+}
+const throwError = (error : errorInterface) : never => {
     throw new CustomError(error.message, error.statusCode)
 }
 interface erro {
