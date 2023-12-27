@@ -269,5 +269,57 @@ function primKeyOfServer(objeto, key) {
  * do objeto em questao, chave de...
 */
 console.log(primKeyOfServer(server, 'ram'));
-console.log();
+//console.log(server["ras"])//at this casem, "ram" is the property present inside of server
+console.log(primKeyOfServer(server, 'hd'));
 const sim = Symbol("lcCid");
+const personagem1 = {
+    name: "lucas",
+    age: 20,
+    hasLicense: true
+};
+function showDataFromAKey(personage, key) {
+    return `o dado encontrado pela passagem da chave é ${personage[key]}`;
+}
+console.log(showDataFromAKey(personagem1, 'name'));
+class TrainingWithKeyOfTypeParameters {
+}
+function showDataFromAKeyByGenerics(objec, key) {
+    return `name do person : ${objec[key]}`;
+}
+const campo = 'name';
+console.log(showDataFromAKeyByGenerics(personagem1, campo)); //pelo parametro eu decido qual campo sera lido
+const use = ['asd', 123]; //use atriubuiu ao tipagem o string pq é uma unica variavel
+const use2 = [];
+console.log(typeof use);
+console.log(typeof use2);
+const myTruck = {
+    description: "caminhao para cargas leves",
+    wheels: 4
+};
+const wheelstruck = 40;
+console.log(typeof wheelstruck);
+//criei um tipo chamado TruckWheels que recebe o tipo que advem da propriedade wheels que ta dentro do tipo truck
+console.log(typeof wheelstruck === 'number'); // true
+/**
+ * como B extende de A, ele tambem vai possuir acesso ao metodo presente em A
+ * logo, é viavel dizer que ele possui este metodo, logo, o resultado da expressao acima
+ * é igual a true
+ */
+// caso onde o resultado do ternario retorna false
+const ternB = {
+    bProperty: "a nao extende de b, logo é do tipo b",
+    showNumbers() {
+        return '12313';
+    }
+};
+const ternA = {
+    showNumbers() {
+        return `213`;
+    }
+    //bProperty : "" //nao existe no tipo A, ou dentro da interface A, quando tipamos como sendo A
+};
+console.log(ternB.bProperty);
+const litero = 'literal';
+console.log(typeof litero === 'string');
+const constantObjectWithType = 'literal'; //objecto with 
+const uniaoOfTypes = `tipoA tipoB`;

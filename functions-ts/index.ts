@@ -428,8 +428,125 @@ function primKeyOfServer<T, K extends keyof T>(objeto : T, key : K ){
 */
 
 console.log(primKeyOfServer(server, 'ram'))
-
-console.log()
+//console.log(server["ras"])//at this casem, "ram" is the property present inside of server
+console.log(primKeyOfServer(server, 'hd'))
 const sim : symbol = Symbol("lcCid")
 
+//keyof type parameters --> lets keep coding, everywhere
 
+type Personality = {
+    name : string
+    age : number
+    hasLicense : boolean
+}
+type P = keyof Personality
+
+const personagem1 : Personality = {
+    name : "lucas",
+    age : 20,
+    hasLicense : true
+}
+
+function showDataFromAKey (personage : Personality, key : P) : string{
+    return `o dado encontrado pela passagem da chave é ${personage[key]}`
+}
+console.log(showDataFromAKey(personagem1, 'name'))
+class TrainingWithKeyOfTypeParameters{
+
+}
+function showDataFromAKeyByGenerics<K extends keyof Personality>(objec : Personality, key : K) : string{
+ return `name do person : ${objec[key]}`
+}
+
+const campo : keyof Personality = 'name' 
+
+console.log(showDataFromAKeyByGenerics(personagem1, campo)) //pelo parametro eu decido qual campo sera lido
+
+//type typeof operator , criando um tipo a partir de outro apenas usando de typeof
+
+type tipounido = (number | string) []
+
+const use  : tipounido = ['asd', 123] //use atriubuiu ao tipagem o string pq é uma unica variavel
+
+const use2 : typeof use = []
+
+console.log(typeof use)
+console.log(typeof use2)
+
+type TypeCreatedFromOtherType = typeof use // 'retirando' o tipo de use e adicionando 
+
+//posso tambem criar um tipo com base em uma propriedade de um objeto
+
+//indexed types
+type Truck ={
+    description : string
+    wheels : number
+}
+
+const myTruck : Truck = {
+    description : "caminhao para cargas leves",
+    wheels: 4
+
+}
+type TruckWhells = Truck['wheels']
+const wheelstruck : TruckWhells = 40
+console.log(typeof wheelstruck)
+//criei um tipo chamado TruckWheels que recebe o tipo que advem da propriedade wheels que ta dentro do tipo truck
+
+console.log(typeof wheelstruck === 'number') // true
+
+//diferença entre a utilização do keyof no exemplo acima e no indexed access 
+/**
+ * basicamente o keyof eh utilizado na semantica de algo mais abrangente
+ * ou seja, serve mais para quando queremos restringir um tipo que esta sendo criado
+ * às chaves que um objeto possui efetivamente, indicando que se trata apenas para
+ * ligar uma chave de forma unica, parafraseando um symbol
+ * 
+ */
+//conditional types created by ternarios expressions
+
+interface A {
+    showNumbers() : string
+}
+interface B extends A {
+    bProperty : string
+}
+type bBoolean = B extends A ? boolean : number
+//resultado acima é igual a true
+type bMethod = B extends {showNumbers() : string} ? boolean : number
+/**
+ * como B extende de A, ele tambem vai possuir acesso ao metodo presente em A
+ * logo, é viavel dizer que ele possui este metodo, logo, o resultado da expressao acima 
+ * é igual a true
+ */
+// caso onde o resultado do ternario retorna false
+
+const ternB : A extends B ? A : B = {
+    bProperty : "a nao extende de b, logo é do tipo b",
+    showNumbers() : string {
+        return '12313'
+    }
+}
+const ternA : B extends A ? A : B = {
+    showNumbers() : string{
+        return `213`
+    }
+    //bProperty : "" //nao existe no tipo A, ou dentro da interface A, quando tipamos como sendo A
+}
+
+console.log(ternB.bProperty)
+
+type literal = `literal`
+const litero : literal = 'literal'
+console.log(typeof litero === 'string')
+
+const constantObjectWithType : literal = 'literal' //objecto with 
+
+//template literals type, basiscamente a uniao de tipos advindos de outros tipos literais
+
+type literalA = "tipoA"
+type literalB = "tipoB"
+
+type uniaoTypes = `${literalA} ${literalB}`
+
+const uniaoOfTypes : uniaoTypes = `tipoA tipoB`
