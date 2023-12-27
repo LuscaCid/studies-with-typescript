@@ -40,6 +40,6 @@ const nota : Review = {stars : 5} //i created a object type
 
 assignReview(nota)
 
-type tipo = number | boolean //type alias
+type tipo = number | boolean //type alias 
 
 const mani : tipo = 2

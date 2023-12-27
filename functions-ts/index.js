@@ -121,7 +121,6 @@ function unknownType(x) {
 }
 unknownType([2, 3, 4]);
 unknownType('sdasd');
-//simplesmente o never é quando a funcao nao retorna nunca, n eh que ela nao retorne nada, é que ela de fato nunca vai retornar ent basicamente é em caso de throw de erro, lancamentos e loops infinitos que realmente nao retornam da funcao
 const throwError = (error) => {
     throw new CustomError(error.message, error.statusCode);
 };
@@ -173,3 +172,102 @@ const shirt = {
     size: 'm'
 };
 console.log(showProductWithTypeAlias(shirt));
+//revisao com generics para aquecer
+function showData(args) {
+    return `os dados papa. ${args}`;
+}
+console.log(showData(5));
+console.log(showData("lucassss"));
+console.log(showData("luquetinha"));
+//generics with less types inside of variable
+function onlyNumOrarr(argumentos) {
+    if (Array.isArray(argumentos)) {
+        return argumentos.filter((element) => element === "amor");
+    }
+    else {
+        return typeof argumentos;
+    }
+}
+console.log(onlyNumOrarr(['adsdas', 'amor'])); //apenas retorna pra mim se for igual a amor, o conteudo e o tipo
+console.log(onlyNumOrarr(5)); // retornou o tipo em string
+function showProductGeneric(objecto) {
+    return `o nome do objeto é ${objecto.name}`;
+}
+console.log(showProductGeneric({ name: "carrinho de mao" }));
+function showPersonFeelings(person) {
+    return console.log(`nome : ${person.name}; sentindo agora: ${person.sentimento} e esta viva? ${person.isAliveNow ? "sim" : "nao"}`);
+}
+const pessoa12 = {
+    name: "luquetildes",
+    sentimento: "feliz",
+    isAliveNow: true
+};
+showPersonFeelings(pessoa12);
+const carro = {
+    name: "volks",
+    wheels: 'traçada, filho',
+    engine: "motor v8"
+};
+const ind = {
+    assinatura: "a de amor", //nao defini uma propiedade com o nome de x, mas o index signature definiu
+    propert: 12
+};
+//se eu disse que o conteudo é em string, ele n pode receber outra coisa que nao seja string
+console.log(ind);
+const caneta = {
+    name: "caneta azul, azul caneta",
+    wheels: false,
+    engine: false,
+    color: "blue"
+};
+const Motorcycle = {
+    name: "motinho",
+    wheels: 2,
+    engine: 2.4,
+    color: "black"
+};
+const Giraffe = {
+    name: 'girafinha',
+    size: 5.5,
+    species: "girafa specie",
+    material: false,
+    utility: false
+};
+const myPen = {
+    name: "caneta bic",
+    size: .05,
+    species: false,
+    material: "some plastic",
+    utility: "write on writeable superficies"
+};
+const printObjInfo = (objectooos) => {
+    return `
+    ${objectooos.material ? "objeto:" : "animal:"}   
+    nome : ${objectooos.name}
+    tamanho : ${objectooos.size}
+    ${objectooos.material ? `Material do objeto:` + objectooos.material : ''}
+    ${objectooos.utility ? `utilidade do objeto:` + objectooos.utility : ''}
+    `;
+};
+console.log(printObjInfo(Giraffe));
+console.log(printObjInfo(myPen));
+//keyof pode recuperar o valor de uma propriedade dentro de um objeto a partir do seu nome
+//mais conhecido tbm por chave, a chave pq somente ela pode ter esse nome dentro do objeto
+const server = {
+    hd: "2TB",
+    ram: "32GB"
+};
+//limitei o acesso de k, dizendo que os unicos valores dele podem ser as propiedades de t
+function primKeyOfServer(objeto, key) {
+    return `o valor da propiedade é : ${objeto[key]} `;
+}
+/**
+ * determinei que o parametro key é um symbol que advem de uma chave presente em T
+ * que neste caso se refere ao objeto T
+ * quando eu falo que "K extends keyof T" para o typescript, K se trata de um symbol
+ * onde ele vai possuir as possibilidades de ter os nomes presentes dentro das propiedades
+ * do objeto em questao, chave de...
+*/
+console.log(primKeyOfServer(server, 'ram'));
+console.log();
+const sim = Symbol("lcCid");

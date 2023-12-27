@@ -253,3 +253,183 @@ const shirt : product ={
     size : 'm'
 }
 console.log(showProductWithTypeAlias(shirt))
+
+//revisao com generics para aquecer
+
+function showData<T>(args : T) : string{
+    return `os dados papa. ${args}`
+}
+
+console.log(showData(5))
+console.log(showData("lucassss"))
+console.log(showData("luquetinha"))
+
+//generics with less types inside of variable
+
+function onlyNumOrarr<T extends number | string []>(argumentos : T) {
+    if(Array.isArray(argumentos)){
+        return argumentos.filter((element) => element === "amor")
+    } else {
+        return typeof argumentos
+    }
+
+}
+
+console.log(onlyNumOrarr(['adsdas', 'amor']))//apenas retorna pra mim se for igual a amor, o conteudo e o tipo
+console.log(onlyNumOrarr(5))// retornou o tipo em string
+
+function showProductGeneric<T extends {name : string, age? : number}>(objecto : T){
+    return `o nome do objeto é ${objecto.name}`
+}
+
+console.log(showProductGeneric({ name : "carrinho de mao"}))
+
+//secao de generics com interfaces
+
+interface GenericToFunction {
+    name : string
+    sentimento : string
+    isAliveNow : boolean //so pra adicionar um tipo diferent // only for addict an different type
+}
+
+function showPersonFeelings<T extends GenericToFunction>(person : T) : void{
+    return console.log(`nome : ${person.name}; sentindo agora: ${person.sentimento } e esta viva? ${person.isAliveNow ? "sim" : "nao"}`)
+}
+
+const pessoa12 : GenericToFunction = {
+    name : "luquetildes",
+    sentimento : "feliz",
+    isAliveNow : true
+}
+
+showPersonFeelings(pessoa12)
+
+// possibility to make an interface with generics to been passed when create an object
+
+interface interWithGen<T ,U>{//podem ser qualquer coisa que eu passar
+    //can be anything that i pass in arguments
+    name : string
+    wheels : T
+    engine : U
+}
+
+const carro : interWithGen<string, string> =  {// a depender da situacao eu posso mudar para me adaptar
+    name : "volks",
+    wheels : 'traçada, filho',
+    engine : "motor v8"
+}
+//tudo gira entorno da adaptação
+
+interface indexo<T, U>{
+    //[index : string] : T //a propiedade tem a chave do tipo texto porem o conteudo eu que defino
+    assinatura : T
+    propert : U
+}
+
+const ind : indexo<string, number> = {
+    assinatura : "a de amor", //nao defini uma propiedade com o nome de x, mas o index signature definiu
+    propert : 12
+}
+//se eu disse que o conteudo é em string, ele n pode receber outra coisa que nao seja string
+
+console.log(ind)
+
+// outro melhor exemplo de criacao de tipos passando generics para interfaces
+
+interface ModelCarDefault <U, T, C>{
+    name : string
+    wheels : U
+    engine : T
+    color : C 
+}
+
+type Auto = ModelCarDefault<number, number, string> 
+type Pen = ModelCarDefault<boolean, boolean, string>
+
+const caneta : Pen = {
+    name : "caneta azul, azul caneta",
+    wheels : false,
+    engine : false,
+    color : "blue"
+}
+
+const Motorcycle : Auto = {
+    name : "motinho",
+    wheels  : 2,
+    engine : 2.4,
+    color : "black"
+} 
+
+
+/**
+ * bloco de codigo que demonstra uma organizacao onde se cria uma interface que tem 
+ * a possibilidade de possuir propiedades com tipos diferentes onde pode ser passado 
+ * por uma <> de generics
+ */
+
+interface AnimalOrObject <U, T> {
+    name : string
+    size : number
+    species? : U
+    material? : T
+    utility? : T
+
+}
+
+type ObjetoQualquer = AnimalOrObject<boolean, string>//nao possui especie, mas possui uma materia prima
+type AnyAnimal = AnimalOrObject<string,boolean>//animal possui uma especie, mas n material
+
+const Giraffe : AnyAnimal = {
+    name : 'girafinha',
+    size : 5.5,
+    species : "girafa specie",
+    material : false,
+    utility : false
+}
+
+const myPen : ObjetoQualquer ={
+    name : "caneta bic",
+    size : .05,
+    species : false,
+    material : "some plastic",
+    utility : "write on writeable superficies"
+}
+
+const printObjInfo = <T extends ObjetoQualquer | AnyAnimal>(objectooos : T) : string => {
+    return `
+    ${objectooos.material ? "objeto:" : "animal:"}   
+    nome : ${objectooos.name}
+    tamanho : ${objectooos.size}
+    ${objectooos.material ? `Material do objeto:` + objectooos.material : ''  }
+    ${objectooos.utility ? `utilidade do objeto:` + objectooos.utility :'' }
+    `
+}
+
+console.log(printObjInfo(Giraffe))
+console.log(printObjInfo(myPen))
+
+//keyof pode recuperar o valor de uma propriedade dentro de um objeto a partir do seu nome
+//mais conhecido tbm por chave, a chave pq somente ela pode ter esse nome dentro do objeto
+
+const server = {
+    hd : "2TB",
+    ram : "32GB"
+}
+//limitei o acesso de k, dizendo que os unicos valores dele podem ser as propiedades de t
+function primKeyOfServer<T, K extends keyof T>(objeto : T, key : K ){
+    return `o valor da propiedade é : ${objeto[key]} `
+}
+/**
+ * determinei que o parametro key é um symbol que advem de uma chave presente em T
+ * que neste caso se refere ao objeto T
+ * quando eu falo que "K extends keyof T" para o typescript, K se trata de um symbol 
+ * onde ele vai possuir as possibilidades de ter os nomes presentes dentro das propiedades
+ * do objeto em questao, chave de...
+*/
+
+console.log(primKeyOfServer(server, 'ram'))
+
+console.log()
+const sim : symbol = Symbol("lcCid")
+
+
