@@ -117,3 +117,120 @@ console.log(filho);
 const phrase = ' a   a   sdasd  asdas a as';
 const phraseWithOutSpaces = phrase.trim();
 console.log(phraseWithOutSpaces);
+class BlogPost {
+    constructor(itemTitle, itemContent) {
+        this.codigo = Math.round(Math.random() * 50000);
+        this.itemTitle = itemTitle; //titulo obrigatorio e o conteudo nao
+        if (itemContent)
+            this.itemContent = itemContent;
+    }
+    showPostsDetails() {
+        let finalMessage;
+        finalMessage = this.itemTitle;
+        if (this.itemContent)
+            finalMessage.concat(this.itemContent);
+        return finalMessage;
+    }
+    set setContent(newContent) {
+        this.itemContent = newContent;
+    }
+    get getContent() {
+        return this.itemContent;
+    }
+    set setTitle(newTitle) {
+        this.itemTitle = newTitle;
+    }
+    get getTitle() {
+        return this.itemTitle;
+    }
+    get itemCode() {
+        return this.codigo;
+    }
+}
+class Velha {
+    someMethod() {
+        return `to the base`;
+    }
+}
+class Nova extends Velha {
+    someMethod() {
+        return `outro valor de retorno, peguei o objeto e apenas sobrescrevi o metodo someMethod`;
+    }
+}
+const objetoNovo = new Nova();
+const oldObject = new Velha();
+console.log(oldObject.someMethod());
+console.log(objetoNovo.someMethod());
+/**
+ * propriedade de protecao de propriedades e metodos -->
+ * --public é muito utilizado para a questao de transformar a propriedade visivel para as filhas
+ * para acessar tanto por fora das classes quanto para acessar diretamente atraves da intancia de um objeto
+ *
+ * --private é usado para proteger o metodo ou propriedade apenas dentro da classe, para ser acessado por fora
+ * é necessario se utilizar de outros metodos de acesso que controlam, possivelmente, atraves de logica condicional
+ *
+ * --protected é visivel apenas a classe criou e para as que estendem dela
+ */
+class TestProtected {
+    constructor(text) {
+        this.protegido = text;
+        this.privado = text;
+    }
+    protectedMethod() {
+        return `metodo privado`;
+    }
+    showPrivado() {
+        return this.privado; // somente visivel a esta classe e nao as outras que herdam desta
+    }
+    privateMethod() {
+        return `private method`;
+    }
+}
+class FilhaTest extends TestProtected {
+    showPrivado() {
+        return this.protegido; //como classe filha, tenho acesso a este que é protected, mas nao ao outro que é private
+    }
+    showProtegido() {
+        console.log(this.protegido); //tem acesso ao atributo protected
+    }
+    protectedMethod() {
+        return `de dentro da filha aqui`;
+    }
+}
+const instanciaFilha = new FilhaTest('message');
+instanciaFilha.showProtegido();
+class AppError {
+    static unathorizedStatus(message, statusCode = 401) {
+        const ErrorBuilder = {
+            message: message,
+            statusCode: statusCode
+        };
+        throw new Error(JSON.stringify(ErrorBuilder));
+    }
+    static internalServerError(object) {
+        if (typeof object === 'string') {
+            throw new Error(object);
+        }
+        const ErrorBuilder = {
+            message: object.message,
+            statusCode: object.statusCode
+        };
+        throw new Error(JSON.stringify(ErrorBuilder));
+    }
+}
+//AppError.internalServerError('messagem de erro, typescript é incrivel')
+//AppError.unathorizedStatus('e-mail ja usado na alicacao', 401)
+class ClasseGenerica {
+    constructor(first, seccond) {
+        this.first = first;
+        this.seccond = seccond;
+    }
+    get showFirst() {
+        return this.first;
+    }
+    get showSeccond() {
+        return this.seccond;
+    }
+}
+const first = new ClasseGenerica('a de amor, b de b', 2); //tipagem de forma annotation
+console.log(first.showFirst);

@@ -189,3 +189,172 @@ console.log(filho)
 const phrase : string = ' a   a   sdasd  asdas a as'
 const phraseWithOutSpaces = phrase.trim()
 console.log(phraseWithOutSpaces)
+
+// trabalhando com as implementacoes de interfaces nos objetos
+
+interface PostsDefault {
+    showPostsDetails () : string 
+}
+
+class BlogPost implements PostsDefault{
+    private itemTitle : string
+    private itemContent! :  string
+    private readonly codigo : number = Math.round(Math.random()*50000)
+    constructor(itemTitle : string, itemContent? : string){
+        this.itemTitle = itemTitle//titulo obrigatorio e o conteudo nao
+        if(itemContent) this.itemContent = itemContent
+    }
+
+    showPostsDetails(): string {
+        let finalMessage : string;
+        finalMessage = this.itemTitle
+
+        if(this.itemContent) finalMessage.concat(this.itemContent)
+        return finalMessage
+    }
+
+    set setContent (newContent : string){
+        this.itemContent = newContent
+    }
+    get getContent() : string {
+        return this.itemContent
+    }
+    set setTitle (newTitle : string)  {
+        this.itemTitle = newTitle
+    }
+    get getTitle() : string{
+        return this.itemTitle
+    }
+
+    get itemCode () : number {
+        return this.codigo
+    }
+
+}
+
+//sobrescrita de metodos, ou override
+
+interface intObjecs {
+    someMethod() : string
+}
+class Velha implements intObjecs{
+    someMethod(): string {
+        return `to the base`
+    }
+}
+
+class Nova extends Velha{//agora minha Nova tem acesso à velha
+    someMethod(): string {
+        return `outro valor de retorno, peguei o objeto e apenas sobrescrevi o metodo someMethod`
+    }
+}
+const objetoNovo : Nova = new Nova()
+const oldObject : Velha = new Velha()
+
+console.log(oldObject.someMethod())
+console.log(objetoNovo.someMethod())
+
+/**
+ * propriedade de protecao de propriedades e metodos --> 
+ * --public é muito utilizado para a questao de transformar a propriedade visivel para as filhas
+ * para acessar tanto por fora das classes quanto para acessar diretamente atraves da intancia de um objeto
+ * 
+ * --private é usado para proteger o metodo ou propriedade apenas dentro da classe, para ser acessado por fora
+ * é necessario se utilizar de outros metodos de acesso que controlam, possivelmente, atraves de logica condicional
+ * 
+ * --protected é visivel apenas a classe criou e para as que estendem dela
+ */
+class TestProtected implements showsProtectedAndPrivate{
+    protected protegido : string
+    private privado : string
+    constructor(text : string) {
+        this.protegido = text
+        this.privado = text
+    }
+    protected protectedMethod() : string{
+        return `metodo privado`
+    }
+    public showPrivado(): string {
+        return this.privado // somente visivel a esta classe e nao as outras que herdam desta
+    }
+    private privateMethod(): string{
+        return `private method`
+    }
+}
+
+interface showsProtectedAndPrivate{
+    showProtegido?() : void
+    showPrivado() : string
+}
+class FilhaTest extends TestProtected implements showsProtectedAndPrivate{
+    showPrivado(): string {
+        return this.protegido //como classe filha, tenho acesso a este que é protected, mas nao ao outro que é private
+    }
+    showProtegido():void{
+        console.log(this.protegido)//tem acesso ao atributo protected
+    }
+    protected protectedMethod(): string {
+        return  `de dentro da filha aqui`
+    }
+    /*privateMethod() : string{
+        return `asdas`
+    }*/ //isso gera u erro de compilacao, pois nao se pode fazer a sobrescrita de un metodo que é privado de outra classe
+}
+
+const instanciaFilha = new FilhaTest('message')
+
+instanciaFilha.showProtegido()
+//instanciaFilha.protegido //erro de compilacao pois o protected so é possivel acessar atraves de outro metodo
+
+/**
+ * basicamente o protected e o private necessitam de metodos para serem acessados. o private precisa de
+ * metedos nas subclasses tambem
+ */
+type ErrorConstuction = {
+    message : string
+    statusCode : number
+}
+
+class AppError{
+    public static unathorizedStatus(message : string, statusCode = 401) : never {
+        const ErrorBuilder : ErrorConstuction = {
+            message: message, 
+            statusCode : statusCode
+        }
+        throw new Error(JSON.stringify(ErrorBuilder))
+    }
+    
+    public static internalServerError<T extends ErrorConstuction | string>(object : T) : never {//vou misturar com generics
+        if(typeof object === 'string'){
+            throw new Error(object)
+        }
+        const ErrorBuilder : ErrorConstuction = {
+            message : object.message,
+            statusCode : object.statusCode
+        }
+        throw new Error(JSON.stringify(ErrorBuilder))
+    }
+}
+//AppError.internalServerError('messagem de erro, typescript é incrivel')
+//AppError.unathorizedStatus('e-mail ja usado na alicacao', 401)
+
+class ClasseGenerica<T, U> {
+    private first! : T
+    private seccond! : U
+    
+    constructor(first : T, seccond : U){
+        this.first = first
+        this.seccond = seccond
+    }
+    get showFirst() : T {
+        return this.first
+    }
+    get showSeccond() : U {//passando tipos de forma generica
+        return this.seccond
+    }
+}
+
+const first = new ClasseGenerica<string, number>('a de amor, b de b',2) //tipagem de forma annotation
+
+console.log(first.showFirst)
+
