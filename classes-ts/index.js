@@ -71,3 +71,35 @@ function returnsTupla() {
 }
 const retornodatupla = returnsTupla();
 console.log(retornodatupla);
+class Father {
+    constructor(name, height) {
+        this.name = name;
+        this.height = height;
+        this.sons = [];
+    }
+    sayIm(content) {
+        return `i, ${this.name} am your father!`;
+    }
+    set setSons(newSon) {
+        this.sons.push(newSon);
+    }
+    get getSons() {
+        return this.sons;
+    }
+    get getName() {
+        return this.name;
+    }
+}
+class Children extends Father {
+    constructor(name, height) {
+        super(name, height);
+    }
+    sayIm(content) {
+        let message;
+        if (content) {
+            return message = `Daddy, i, ${this.getName}, am your son. Addcitional message ${content}`;
+        }
+        else
+            return `Daddy, i, ${this.getName}, am your son.`;
+    }
+}

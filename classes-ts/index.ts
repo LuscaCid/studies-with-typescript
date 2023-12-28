@@ -117,3 +117,59 @@ function returnsTupla() : myTrainWithTupla{
 const retornodatupla : myTrainWithTupla = returnsTupla()
 
 console.log(retornodatupla)
+
+/**
+ * tratamento com superclasses e classes filhas testas. HERANÇA
+ */
+interface FatherAndChildMethods{
+    sayIm<T>(content? : T) : string
+}
+type Son = {
+    name : string
+    age : number
+    crackedBones? : number
+    isBoy : boolean
+}
+
+class Father implements FatherAndChildMethods {
+    
+    private name : string
+    private sons : Array<Son>
+    private readonly height! : number
+    
+    constructor(name : string, height : number){
+        this.name = name
+        this.height = height
+        this.sons = []
+    }
+
+    sayIm<T>(content?: T | undefined): string {
+        return `i, ${this.name} am your father!`
+    }
+
+    set setSons(newSon : Son) {
+        this.sons.push(newSon)
+    }
+    get getSons() : Son [] {
+        return this.sons
+    }
+
+    get getName() : string{
+        return this.name
+    }
+}
+
+class Children extends Father implements FatherAndChildMethods {
+    
+    constructor(name : string, height : number){
+        super(name, height)
+    }
+    
+    sayIm<T>(content?: T | undefined): string {
+        let message : string ;
+        if(content){
+            return message = `Daddy, i, ${this.getName}, am your son. Addcitional message ${content}`
+        } else return `Daddy, i, ${this.getName}, am your son.`
+        
+    }
+}
