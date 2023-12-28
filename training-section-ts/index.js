@@ -23,3 +23,14 @@ const product1 = {
 const agentLucas = new Agent('lucas', '123123');
 agentLucas.sellItem(product1);
 console.log(agentLucas.selled);
+const genericaao = ['amor', 2907];
+const genericoo = { nome: 'lucas', 'andar': 2 }; //tipado da forma que eu decidi 
+//defini a segunda posicao do vetor como sendo algo opcional
+const variableWithTuplaGeneric = [];
+variableWithTuplaGeneric.push(true); //tipo que é aceito na segunda posicao
+//variableWithTuplaGeneric[1] = true//erro de compilacao apenas ao tentar forcar fazer a entrada do valor desta forma
+variableWithTuplaGeneric[1] = 2; //accepts numbers only
+console.log(variableWithTuplaGeneric);
+/**
+ * i have to learn more about more forms to work with class in ts, oop
+ */ 

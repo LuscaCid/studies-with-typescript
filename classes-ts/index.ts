@@ -160,11 +160,17 @@ class Father implements FatherAndChildMethods {
 }
 
 class Children extends Father implements FatherAndChildMethods {
+    private actualCountOfTeethDownned : number 
     
-    constructor(name : string, height : number){
+    constructor(name : string, height : number, teethDown : number){
         super(name, height)
+        this.actualCountOfTeethDownned = teethDown
     }
     
+    get returnDownTeeth() : number {
+        return this.actualCountOfTeethDownned
+    }
+
     sayIm<T>(content?: T | undefined): string {
         let message : string ;
         if(content){
@@ -173,3 +179,10 @@ class Children extends Father implements FatherAndChildMethods {
         
     }
 }
+
+const filho = new Children('pedrinho', 1.10, 0)
+console.log(filho)
+const phrase : string = ' a   a   sdasd  asdas a as'
+const phraseWithOutSpaces = phrase.trim()
+console.log(phrase)
+console.log(phraseWithOutSpaces)

@@ -91,8 +91,12 @@ class Father {
     }
 }
 class Children extends Father {
-    constructor(name, height) {
+    constructor(name, height, teethDown) {
         super(name, height);
+        this.actualCountOfTeethDownned = teethDown;
+    }
+    get returnDownTeeth() {
+        return this.actualCountOfTeethDownned;
     }
     sayIm(content) {
         let message;
@@ -103,3 +107,9 @@ class Children extends Father {
             return `Daddy, i, ${this.getName}, am your son.`;
     }
 }
+const filho = new Children('pedrinho', 1.10, 0);
+console.log(filho);
+const phrase = ' a   a   sdasd  asdas a as';
+const phraseWithOutSpaces = phrase.trim();
+console.log(phrase);
+console.log(phraseWithOutSpaces);
