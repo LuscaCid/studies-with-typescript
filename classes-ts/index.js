@@ -29,6 +29,9 @@ class Fucker {
         else
             return `only pass booleans right now!`;
     }
+    get testeCaloReturns() {
+        return this.testeCalo;
+    }
     set setArrCars(car) {
         this.arrCars.push(car);
     }
@@ -37,6 +40,8 @@ class Fucker {
     }
 }
 const pessoinha = new Fucker("loque", true);
+const tipoAdvindoDaPropriedadeName = 'dsa';
+console.log(typeof tipoAdvindoDaPropriedadeName === typeof pessoinha['name']);
 console.log(pessoinha);
 pessoinha.setName('luquitos');
 console.log(pessoinha);
@@ -60,9 +65,9 @@ class Doggos extends Animaiszinhos {
         return `o cachorro faz ${sound}`;
     }
 }
-//ao usar os set e get paramos de manipular como uma funcao e aparentemente passa a ser como uma propriedade, wtf
-/**
- * onde eles recebem os valores que sao passados para a logica, mas nao diretamente à propriedade, antes passa por
- * uma logica de setter
- *
- */ 
+const traininTupla = [2, 'frase aqui, string', { name: "tupla", qtdWheels: 4 }];
+function returnsTupla() {
+    return [2, '232', { name: 'string', qtdWheels: 3 }];
+}
+const retornodatupla = returnsTupla();
+console.log(retornodatupla);

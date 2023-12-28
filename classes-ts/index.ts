@@ -27,10 +27,10 @@ class Calo implements calo {
 }
 type possibleName = string | undefined
 class Fucker{
-    public name! :possibleName
+    public name! : possibleName
     public isAlive! : boolean
     private arrCars : calo[]
-
+    private testeCalo! : calo
     constructor(name: string, isAlive : boolean){
         this.name = name
         this.isAlive = isAlive
@@ -49,19 +49,25 @@ class Fucker{
         }
         else return `only pass booleans right now!`
     }
-
+    get testeCaloReturns() : calo {
+        return this.testeCalo
+    }
     set setArrCars(car : calo) {
         this.arrCars.push(car)
     }
-
     get getArrCars() : calo [] {// ele vai retornar naturalmente um array do tipo calo
         return this.arrCars
     }
-
 }
+
 const pessoinha = new Fucker("loque", true)
 
+type pegoDaClasse = typeof pessoinha['name']
+const tipoAdvindoDaPropriedadeName : pegoDaClasse = 'dsa'
+console.log(typeof tipoAdvindoDaPropriedadeName === typeof pessoinha['name'])
+
 console.log(pessoinha)
+
 pessoinha.setName('luquitos')
 console.log(pessoinha)
 const carToPush : calo = {
@@ -96,3 +102,18 @@ class Doggos extends Animaiszinhos{
  * uma logica de setter
  * 
  */
+/**
+ * short section to train with tupla
+ */
+type myTrainWithTupla = [number, string, calo]
+
+const traininTupla : myTrainWithTupla = [2,'frase aqui, string', {name : "tupla", qtdWheels : 4}]
+
+
+function returnsTupla() : myTrainWithTupla{
+    return [2, '232', {name : 'string', qtdWheels : 3}]
+}
+
+const retornodatupla : myTrainWithTupla = returnsTupla()
+
+console.log(retornodatupla)
