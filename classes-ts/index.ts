@@ -144,7 +144,11 @@ class Father implements FatherAndChildMethods {
     }
 
     sayIm<T>(content?: T | undefined): string {
-        return `i, ${this.name} am your father!`
+        let message : string ;
+        if(content){
+            return message = `i, ${this.name} am your father!. Addcitional message ${content}`
+        } else return `i, ${this.name} am your father!`
+       
     }
 
     set setSons(newSon : Son) {
@@ -184,5 +188,4 @@ const filho = new Children('pedrinho', 1.10, 0)
 console.log(filho)
 const phrase : string = ' a   a   sdasd  asdas a as'
 const phraseWithOutSpaces = phrase.trim()
-console.log(phrase)
 console.log(phraseWithOutSpaces)

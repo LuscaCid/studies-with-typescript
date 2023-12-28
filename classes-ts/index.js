@@ -78,7 +78,12 @@ class Father {
         this.sons = [];
     }
     sayIm(content) {
-        return `i, ${this.name} am your father!`;
+        let message;
+        if (content) {
+            return message = `i, ${this.name} am your father!. Addcitional message ${content}`;
+        }
+        else
+            return `i, ${this.name} am your father!`;
     }
     set setSons(newSon) {
         this.sons.push(newSon);
@@ -111,5 +116,4 @@ const filho = new Children('pedrinho', 1.10, 0);
 console.log(filho);
 const phrase = ' a   a   sdasd  asdas a as';
 const phraseWithOutSpaces = phrase.trim();
-console.log(phrase);
 console.log(phraseWithOutSpaces);
