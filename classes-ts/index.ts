@@ -25,9 +25,9 @@ class Calo implements calo {
         this.qtdWheels = qtdWheels
     }
 }
-
+type possibleName = string | undefined
 class Fucker{
-    public name! : string | undefined
+    public name! :possibleName
     public isAlive! : boolean
     private arrCars : calo[]
 
@@ -37,8 +37,9 @@ class Fucker{
         this.arrCars = []
     }
 
-    setName<T extends string | undefined>(name : T) : void{
+    setName<T extends possibleName>(name : T) : void{
         this.name = name
+        return console.log(this.name)
     }
 
     setIsAlive(isAlive : unknown) : string {
@@ -49,11 +50,11 @@ class Fucker{
         else return `only pass booleans right now!`
     }
 
-    setArrCars(car : calo) : number{
-        return this.arrCars.push(car)
+    set setArrCars(car : calo) {
+        this.arrCars.push(car)
     }
 
-    getArrCars() : calo [] {
+    get getArrCars() : calo [] {// ele vai retornar naturalmente um array do tipo calo
         return this.arrCars
     }
 
@@ -61,15 +62,16 @@ class Fucker{
 const pessoinha = new Fucker("loque", true)
 
 console.log(pessoinha)
-
+pessoinha.setName('luquitos')
+console.log(pessoinha)
 const carToPush : calo = {
     name : "fusca herbie",
     qtdWheels : 4
 }
 
-pessoinha.setArrCars(carToPush)
-pessoinha.setArrCars({name : "ferrari", qtdWheels : 4})// an object literal made with properties that have in type calo
-console.log(pessoinha.getArrCars())
+pessoinha.setArrCars = carToPush
+pessoinha.setArrCars = {name : "ferrari", qtdWheels : 4}
+console.log(pessoinha.getArrCars)
 
 //getters and setters to an class with typescrip
 
@@ -88,3 +90,9 @@ class Doggos extends Animaiszinhos{
         return `o cachorro faz ${sound}`
     }
 }
+//ao usar os set e get paramos de manipular como uma funcao e aparentemente passa a ser como uma propriedade, wtf
+/**
+ * onde eles recebem os valores que sao passados para a logica, mas nao diretamente à propriedade, antes passa por 
+ * uma logica de setter
+ * 
+ */

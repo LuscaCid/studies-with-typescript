@@ -19,6 +19,7 @@ class Fucker {
     }
     setName(name) {
         this.name = name;
+        return console.log(this.name);
     }
     setIsAlive(isAlive) {
         if (typeof isAlive === 'boolean') {
@@ -28,22 +29,24 @@ class Fucker {
         else
             return `only pass booleans right now!`;
     }
-    setArrCars(car) {
-        return this.arrCars.push(car);
+    set setArrCars(car) {
+        this.arrCars.push(car);
     }
-    getArrCars() {
+    get getArrCars() {
         return this.arrCars;
     }
 }
 const pessoinha = new Fucker("loque", true);
 console.log(pessoinha);
+pessoinha.setName('luquitos');
+console.log(pessoinha);
 const carToPush = {
     name: "fusca herbie",
     qtdWheels: 4
 };
-pessoinha.setArrCars(carToPush);
-pessoinha.setArrCars({ name: "ferrari", qtdWheels: 4 }); // an object literal made with properties that have in type calo
-console.log(pessoinha.getArrCars());
+pessoinha.setArrCars = carToPush;
+pessoinha.setArrCars = { name: "ferrari", qtdWheels: 4 };
+console.log(pessoinha.getArrCars);
 //getters and setters to an class with typescrip
 const arrOfPeople = [];
 arrOfPeople.push(pessoinha);
@@ -57,3 +60,9 @@ class Doggos extends Animaiszinhos {
         return `o cachorro faz ${sound}`;
     }
 }
+//ao usar os set e get paramos de manipular como uma funcao e aparentemente passa a ser como uma propriedade, wtf
+/**
+ * onde eles recebem os valores que sao passados para a logica, mas nao diretamente à propriedade, antes passa por
+ * uma logica de setter
+ *
+ */ 
