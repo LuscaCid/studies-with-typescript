@@ -382,5 +382,12 @@ const objCemPorcentoLiteral = {
     age: 23123
 };
 const oneMoreReturned = AppointToKeyOFObject(objCemPorcentoLiteral, 'age');
-//quando eu possuo um objeto que ja esta declarado no codigo, porem nao quando é uma assinatura de indice, pois novas
-//propriedades podem ser criadas a partir desta assinatura
+//const newObj : AdvindoDeObjetoCemPorcentoLiteral = {}//its need more properties from the type of objCemPorcentoLiteral
+//so uma ultima curioside a cerca de classes em typescript
+class B {
+}
+class A {
+}
+const ClasseB = new B();
+//por mais que seja tipada como A, eu instanciei ela como sendo B, mas isso só é possivel pq as duas classes sao
+//extremamente identicas, onde as suas caracteristicas internas sao iguais.
