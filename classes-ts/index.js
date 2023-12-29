@@ -338,3 +338,9 @@ const funcCallback = (content) => {
     return content;
 };
 DrEduardo.receiveCallback(funcCallback);
+const variavelTipada = [12, '1221'];
+const objetoLiteral = {
+    name: "adsd",
+    numero: 123
+};
+console.log(55 + 45 + 65 + 60 + 55 + 65);

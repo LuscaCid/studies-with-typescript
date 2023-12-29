@@ -504,3 +504,21 @@ const funcCallback = (content : string) => {
 }
 
 DrEduardo.receiveCallback(funcCallback)
+
+/**
+ * types section
+ */
+
+type string_ = string
+type number_ = number
+
+type unionStringNumber = string_ | number_
+
+const variavelTipada : unionStringNumber [] = [12, '1221']
+
+const objetoLiteral = {
+    name : "adsd",
+    numero : 123
+}
+
+console.log(55+45+65+60+55+65)
