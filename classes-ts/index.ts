@@ -354,7 +354,53 @@ class ClasseGenerica<T, U> {
     }
 }
 
-const first = new ClasseGenerica<string, number>('a de amor, b de b',2) //tipagem de forma annotation
+const first = new ClasseGenerica<string, number>('a de amor',2) //tipagem de forma annotation
 
 console.log(first.showFirst)
 
+class GenericaWithStatic {
+    public static staticMethods<T extends string | number>(content : T) : void {
+        return console.log(content)
+    }
+} 
+
+GenericaWithStatic.staticMethods<string>("mensagem positiva para todos, do linkeds")
+//tipando por annotation o que vai ser passado nos parametros
+
+//parameter properties, torna a classe mais enxuta
+
+class ParametersPoperties{
+    constructor(private name : string){//at parameters...
+        this.name = name
+    }
+    
+    get showName() : string {
+        return this.name
+    }
+}
+
+const objectWithProperties = new ParametersPoperties("lucas")
+/**
+ * 
+ * asdewqqwerqwerwerqqwerqwertyqwetqwertyqwertyqweteyyyyyyyttyyttyyttyytttyytyttyyttyyytrerterfvdgfgregfdrtedgfdrgf
+ */
+abstract class ClasseAbstrata {
+    public abstract ShowName() : string
+}
+const myClass = class ClassExpression extends ClasseAbstrata{
+    name! : string
+    constructor(name : string){
+        super()
+        this.name = name
+    }
+    public ShowName(): string {
+        return this.name + " " + "é como eu me chamo, nesta classe"
+    }//metodo abstrato para ser implementado na classe
+}
+//diferente de interface, essas regras, contratos sao atribuidos a classe por meio da palavra implements
+//ja para uma classe abstrata eh necessario implementar com o extends, é uma heranca e tambem é necessario,
+//por conta deste extends, passar um super() por se tratar de um classe filha que herda da classe pai
+
+const newOBJ = new myClass('luquitos')
+//forma de criar uma classe atrbuir a uma variavel
+console.log(newOBJ.ShowName())

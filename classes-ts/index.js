@@ -232,5 +232,13 @@ class ClasseGenerica {
         return this.seccond;
     }
 }
-const first = new ClasseGenerica('a de amor, b de b', 2); //tipagem de forma annotation
+const first = new ClasseGenerica('a de amor', 2); //tipagem de forma annotation
 console.log(first.showFirst);
+class GenericaWithStatic {
+    static staticMethods(content) {
+        return console.log(content);
+    }
+}
+GenericaWithStatic.staticMethods("mensagem positiva para todos, do linkeds");
+//tipando por annotation o que vai ser passado nos parametros
+//parameter properties, torna a classe mais enxuta
