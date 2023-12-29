@@ -409,3 +409,98 @@ console.log(newOBJ.ShowName())
 /**
  * chegando ao fim de mais uma secao... agora vamos para TS modules, para importar e exportar arquivos
  */
+
+/**
+ * unindo todos os conhecimentos, ou quase todos neste leve treinamento de classes
+ */
+
+interface MedicalModel {//simplesmente naoposso ter metodos e propriedades dados como private implementados
+   realizarConsulta(nomePaciente : string) : void
+}
+
+abstract class PrivateProperties {//posso ter metodos e propriedades dados como private implementados
+    protected amigo : string
+    protected crm : number = Math.round(Math.random() * 5000)
+    
+    constructor(valorInicial: string){
+        this.amigo = valorInicial
+    }
+    public showPrivate() : string{
+        return this.amigo
+    }
+    protected abstract  greeting() : string // metodo que deve ser implementado
+}
+//a classe abstrata nao pode ser instanciada, apenas usada de 'interface'
+
+const MedicalClass = class extends PrivateProperties implements MedicalModel  {
+    //protected é mais quando se quer utilizar de uma protecao que seja capaz de se herdar
+    
+    public isTeacherToo : boolean
+
+    constructor (private especialidade : string, private name : string, isTeacherToo : boolean, friend: string){
+        super(friend)
+        this.name = name
+        this.especialidade = especialidade
+        this.isTeacherToo = isTeacherToo
+    }
+
+    public showFriend() : void{
+        return console.log(`amigo : ${this.amigo}`)
+    }
+
+    realizarConsulta(nomePaciente: string): void {
+        return console.log(`eu, ${this.name}, consultei o paciente ${nomePaciente}`)
+    }
+
+    public showGreeting() : string {//tem que ser string pq minha funcao que esta sendo retornada, retorna uma string
+        return this.greeting()
+    }
+    protected greeting(): string {//metodo protegido
+        return `bom dia dr. ${this.name}`
+    }
+    public receiveCallback<T>(callback : (args : T) => T){
+        return console.log(callback)
+    }
+}
+const DrEduardo = new MedicalClass('retinologo', 'eduardo principe', true, 'zezé')
+
+console.log(DrEduardo)
+console.log(DrEduardo.showGreeting())
+abstract class GettersAndSetters <T> {
+    abstract get showContent() : T
+    abstract get showResto() : T
+}
+
+const MyClassWithGenerics = class <T extends string, U> implements GettersAndSetters<string>{
+    public anyValue! : U
+    
+    constructor(private content : T, private resto : T) {
+        
+        this.content = content
+        this.resto = resto
+    }
+    get showContent(): string {
+        return this.content
+    }
+    get showResto(): string {
+        return this.resto
+    }
+
+    //set any value
+
+    set SetAnyValue(newAnyValue : U){//narrowing to tratment the data
+        this.anyValue = newAnyValue
+    }
+
+}
+
+const objetoTrain =  new MyClassWithGenerics("conteeuedo", "dasdas")
+
+objetoTrain.SetAnyValue = {a : 123}
+console.log(objetoTrain)
+
+const funcCallback = (content : string) => {
+    return content
+}
+
+DrEduardo.receiveCallback(funcCallback)

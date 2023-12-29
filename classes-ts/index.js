@@ -242,3 +242,99 @@ class GenericaWithStatic {
 GenericaWithStatic.staticMethods("mensagem positiva para todos, do linkeds");
 //tipando por annotation o que vai ser passado nos parametros
 //parameter properties, torna a classe mais enxuta
+class ParametersPoperties {
+    constructor(name) {
+        this.name = name;
+        this.name = name;
+    }
+    get showName() {
+        return this.name;
+    }
+}
+const objectWithProperties = new ParametersPoperties("lucas");
+/**
+ *
+ * asdewqqwerqwerwerqqwerqwertyqwetqwertyqwertyqweteyyyyyyyttyyttyyttyytttyytyttyyttyyytrerterfvdgfgregfdrtedgfdrgf
+ */
+class ClasseAbstrata {
+}
+const myClass = class ClassExpression extends ClasseAbstrata {
+    constructor(name) {
+        super();
+        this.name = name;
+    }
+    ShowName() {
+        return this.name + " " + "é como eu me chamo, nesta classe";
+    } //metodo abstrato para ser implementado na classe
+};
+//diferente de interface, essas regras, contratos sao atribuidos a classe por meio da palavra implements
+//ja para uma classe abstrata eh necessario implementar com o extends, é uma heranca e tambem é necessario,
+//por conta deste extends, passar um super() por se tratar de um classe filha que herda da classe pai
+const newOBJ = new myClass('luquitos');
+//forma de criar uma classe atrbuir a uma variavel
+console.log(newOBJ.ShowName());
+class PrivateProperties {
+    constructor(valorInicial) {
+        this.crm = Math.round(Math.random() * 5000);
+        this.amigo = valorInicial;
+    }
+    showPrivate() {
+        return this.amigo;
+    }
+}
+//a classe abstrata nao pode ser instanciada, apenas usada de 'interface'
+const MedicalClass = class extends PrivateProperties {
+    constructor(especialidade, name, isTeacherToo, friend) {
+        super(friend);
+        this.especialidade = especialidade;
+        this.name = name;
+        this.name = name;
+        this.especialidade = especialidade;
+        this.isTeacherToo = isTeacherToo;
+    }
+    showFriend() {
+        return console.log(`amigo : ${this.amigo}`);
+    }
+    realizarConsulta(nomePaciente) {
+        return console.log(`eu, ${this.name}, consultei o paciente ${nomePaciente}`);
+    }
+    showGreeting() {
+        return this.greeting();
+    }
+    greeting() {
+        return `bom dia dr. ${this.name}`;
+    }
+    receiveCallback(callback) {
+        return console.log(callback);
+    }
+};
+const DrEduardo = new MedicalClass('retinologo', 'eduardo principe', true, 'zezé');
+console.log(DrEduardo);
+console.log(DrEduardo.showGreeting());
+class GettersAndSetters {
+}
+const MyClassWithGenerics = class {
+    constructor(content, resto) {
+        this.content = content;
+        this.resto = resto;
+        this.content = content;
+        this.resto = resto;
+    }
+    get showContent() {
+        return this.content;
+    }
+    get showResto() {
+        return this.resto;
+    }
+    //set any value
+    set SetAnyValue(newAnyValue) {
+        this.anyValue = newAnyValue;
+    }
+};
+const objetoTrain = new MyClassWithGenerics("conteeuedo", "dasdas");
+objetoTrain.SetAnyValue = { a: 123 };
+console.log(objetoTrain);
+const funcCallback = (content) => {
+    return content;
+};
+DrEduardo.receiveCallback(funcCallback);
