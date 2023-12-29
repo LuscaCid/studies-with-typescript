@@ -62,3 +62,4 @@ const arrayWithTupla = ["posicao da string", 3, {
 const valueArray = arrayWithTupla[2];
 console.log(valueArray.numberStringArray());
 console.log(arrayWithTupla[2].numberStringArray()[1]);
+//finshed, o proximo assunto eh decorators, o professor disse q é o assunto mais dificil do typescript
