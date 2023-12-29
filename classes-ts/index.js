@@ -343,7 +343,7 @@ const objetoLiteral = {
     name: "adsd",
     numero: 123
 };
-//console.log(55+45+65+60+55+65)
+//console.log(55+45+65+60+55+65) maiana calculates
 /** secao para recepcao de callback */
 function funcaoRetorno(frase) {
     return `${frase} --> retornada na function`;
@@ -354,3 +354,33 @@ function retorneACAllback(callback, argument) {
 }
 const phraseReturned = retorneACAllback(funcaoRetorno, "paradise pd é uma serie top");
 console.log(phraseReturned);
+const literalObjeto = {
+    name: "luquitos",
+    age: 23,
+    sayMyInfo() {
+        return `me chamo ${this.name} e possuo, ${this.age} de idade`;
+    }
+};
+const numeroMesmo = 2;
+const numeroTipadd = 3;
+console.log();
+const assinaturadeindice = {};
+assinaturadeindice.y = 123;
+assinaturadeindice.x = 23;
+function AppointToKeyOFObject(objectToBeAppointed, key) {
+    const valueAppointed = objectToBeAppointed[key];
+    return valueAppointed;
+}
+const valueAppointed = AppointToKeyOFObject(assinaturadeindice, 'y');
+const otheValuer = AppointToKeyOFObject(assinaturadeindice, "d");
+console.log(valueAppointed);
+console.log(otheValuer); //its like undefined? oh yeah, its undefined
+//apontando uma chave presente dentro de um objeto com a propriedade que diz que o meu key é necessariamente uma chave
+//do objeto que vem na primeira posicao dos parametros
+const objCemPorcentoLiteral = {
+    name: "manolito vei",
+    age: 23123
+};
+const oneMoreReturned = AppointToKeyOFObject(objCemPorcentoLiteral, 'age');
+//quando eu possuo um objeto que ja esta declarado no codigo, porem nao quando é uma assinatura de indice, pois novas
+//propriedades podem ser criadas a partir desta assinatura

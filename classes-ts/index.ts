@@ -521,8 +521,7 @@ const objetoLiteral = {
     numero : 123
 }
 
-//console.log(55+45+65+60+55+65)
-
+//console.log(55+45+65+60+55+65) maiana calculates
 
 /** secao para recepcao de callback */
 
@@ -536,3 +535,50 @@ function retorneACAllback(callback : (arg : string) => string, argument : string
 const phraseReturned : string = retorneACAllback(funcaoRetorno, "paradise pd é uma serie top")
 
 console.log(phraseReturned)
+
+/**treinamento com keyof operator eh muiiito importante tbm */
+interface literalNe {
+    name : string
+    age : number
+    sayMyInfo() : string
+}
+const literalObjeto : literalNe= {
+    name : "luquitos",
+    age : 23,
+    sayMyInfo() {
+        return `me chamo ${this.name} e possuo, ${this.age} de idade`
+    }
+}
+
+type typeOfProperty = literalNe['age'] //keyof type operator
+
+const numeroMesmo :  number = 2
+const numeroTipadd : typeOfProperty = 3
+console.log()
+
+interface indexedSignature {
+    [index : string] : number
+}
+const assinaturadeindice : indexedSignature  = {}
+
+assinaturadeindice.y=123
+assinaturadeindice.x=23
+
+function AppointToKeyOFObject<T, K extends keyof T>(objectToBeAppointed : T, key : K){
+    const valueAppointed = objectToBeAppointed[key]
+    return valueAppointed
+}
+const valueAppointed = AppointToKeyOFObject(assinaturadeindice, 'y')
+const otheValuer = AppointToKeyOFObject(assinaturadeindice, "d")
+console.log(valueAppointed)
+console.log(otheValuer) //its like undefined? oh yeah, its undefined
+//apontando uma chave presente dentro de um objeto com a propriedade que diz que o meu key é necessariamente uma chave
+//do objeto que vem na primeira posicao dos parametros
+
+const objCemPorcentoLiteral = {
+    name : "manolito vei",
+    age :23123
+}
+const oneMoreReturned =  AppointToKeyOFObject(objCemPorcentoLiteral, 'age') 
+//quando eu possuo um objeto que ja esta declarado no codigo, porem nao quando é uma assinatura de indice, pois novas
+//propriedades podem ser criadas a partir desta assinatura
