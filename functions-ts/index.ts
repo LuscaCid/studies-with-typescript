@@ -521,7 +521,7 @@ type bMethod = B extends {showNumbers() : string} ? boolean : number
  */
 // caso onde o resultado do ternario retorna false
 
-const ternB : A extends B ? A : B = {
+/*const ternB : A extends B ? A : B = {
     bProperty : "a nao extende de b, logo é do tipo b",
     showNumbers() : string {
         return '12313'
@@ -533,8 +533,8 @@ const ternA : B extends A ? A : B = {
     }
     //bProperty : "" //nao existe no tipo A, ou dentro da interface A, quando tipamos como sendo A
 }
-
 console.log(ternB.bProperty)
+*/
 
 type literal = `literal`
 const litero : literal = 'literal'
