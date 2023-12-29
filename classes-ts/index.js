@@ -343,4 +343,14 @@ const objetoLiteral = {
     name: "adsd",
     numero: 123
 };
-console.log(55 + 45 + 65 + 60 + 55 + 65);
+//console.log(55+45+65+60+55+65)
+/** secao para recepcao de callback */
+function funcaoRetorno(frase) {
+    return `${frase} --> retornada na function`;
+}
+//passing the callback function to the parameter
+function retorneACAllback(callback, argument) {
+    return callback(argument);
+}
+const phraseReturned = retorneACAllback(funcaoRetorno, "paradise pd é uma serie top");
+console.log(phraseReturned);

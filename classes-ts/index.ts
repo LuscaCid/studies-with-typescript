@@ -521,4 +521,18 @@ const objetoLiteral = {
     numero : 123
 }
 
-console.log(55+45+65+60+55+65)
+//console.log(55+45+65+60+55+65)
+
+
+/** secao para recepcao de callback */
+
+function funcaoRetorno(frase : string ): string {
+    return `${frase} --> retornada na function`
+}
+//passing the callback function to the parameter
+function retorneACAllback(callback : (arg : string) => string, argument : string){
+    return callback(argument)
+}
+const phraseReturned : string = retorneACAllback(funcaoRetorno, "paradise pd é uma serie top")
+
+console.log(phraseReturned)
