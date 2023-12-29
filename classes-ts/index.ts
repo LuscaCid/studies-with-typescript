@@ -404,3 +404,8 @@ const myClass = class ClassExpression extends ClasseAbstrata{
 const newOBJ = new myClass('luquitos')
 //forma de criar uma classe atrbuir a uma variavel
 console.log(newOBJ.ShowName())
+
+
+/**
+ * chegando ao fim de mais uma secao... agora vamos para TS modules, para importar e exportar arquivos
+ */
