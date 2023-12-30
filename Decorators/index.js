@@ -285,3 +285,24 @@ __decorate([
 ], Admin.prototype, "username", void 0);
 const murilo = new Admin('mlo');
 console.log(murilo.username);
+//treinamento rapido de decorators com metodos
+function ShowArguments() {
+    return (target, propertyKey, descriptor) => {
+        const metodoOriginal = descriptor.value;
+        descriptor.value = function (...args) {
+            console.log(`o metodo ${propertyKey} foi executado fornecendo os seguintes parametros ${args}`);
+            return metodoOriginal.call(this, args);
+        };
+        return descriptor;
+    };
+}
+class Instancia {
+    mostrarArgumentos(...args) {
+        console.log("finalizando metodo");
+    }
+}
+__decorate([
+    ShowArguments()
+], Instancia.prototype, "mostrarArgumentos", null);
+const novaInstancia = new Instancia();
+novaInstancia.mostrarArgumentos('asdas', 1123, 123, true, ['amor', 23, false]);

@@ -317,3 +317,31 @@ class Admin{
 
 const murilo = new Admin('mlo')
 console.log(murilo.username)
+
+//treinamento rapido de decorators com metodos
+
+
+function ShowArguments(){
+    return (
+        target : object,
+        propertyKey : string,
+        descriptor : PropertyDescriptor
+    ) => {
+        const metodoOriginal = descriptor.value
+        descriptor.value = function (...args : any []){
+            console.log(`o metodo ${propertyKey} foi executado fornecendo os seguintes parametros ${args}`)
+            return metodoOriginal.call(this, args)
+        }
+        return descriptor
+    }
+}
+class Instancia {
+    @ShowArguments()
+    mostrarArgumentos(...args : any []){
+        console.log("finalizando metodo")
+    }
+}
+
+const novaInstancia = new Instancia()
+
+novaInstancia.mostrarArgumentos('asdas', 1123, 123, true, ['amor', 23, false])
