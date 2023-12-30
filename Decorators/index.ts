@@ -166,7 +166,7 @@ function sayIsPrim(){
             //definicao das novas properties ou modificacoes
             get : getter,
             set : setter
-        } )
+        })
     }
 }
 
@@ -187,7 +187,10 @@ function formatNumber() {
     }
     //mas eu preciso aplicar a chave da propriedade que estas configuracoes vao entrar, no caso se passa no segundo argumento
 }
-@ShowDecorator //vai retornar as informacoes acerca da classe
+
+
+
+@ShowDecorator//vai retornar as informacoes acerca da classe
 class ID {
     @formatNumber()//se refere no properyKey ao id logo abaixo
     public id : string
@@ -211,3 +214,106 @@ newItem.anyNumber = 29 // se no caso o valor que entrar for primo, a logica é m
  * acessando diretamente com o propertyKey do campo presente dentro 
  * da classe e isso é incrivel
  */
+
+//method decorator. exemplo real
+
+function catchArgs(){
+    return function (
+        target : object,
+        key : string | Symbol,
+        descriptor : PropertyDescriptor
+    ){
+        //console.log(descriptor.value, 'descriptor.value')
+        const childFunction = descriptor.value
+        descriptor.value = function(...args : any []){
+            if(typeof args[0] === 'string' || typeof args[0] === 'number' ){
+                return childFunction.apply(this, args)
+            } else {
+                return null // e nao executa a proxima funcao que no caso
+                //seria o proprio metodo chamado
+            }
+        }
+        return descriptor
+    }
+}
+
+function checkIsPosted(){
+    return (
+        target : any,
+        key : string | Symbol,
+        descriptor : PropertyDescriptor
+    ) => {
+        const childFunction = descriptor.value
+        //o valor presente nele é a funcao que é referenciada
+
+        descriptor.value = function(...args : any []){
+            console.log(args[0])
+            console.log(args[1])
+            if(args[1]){
+                console.log('user ja postou')
+                return null
+            } else {
+                return childFunction.call(this, args)
+            }
+        }
+        return descriptor
+    }
+}
+
+class Postagem {
+    public alreadyPosted : boolean = false
+    @catchArgs()
+    onlyCheckArgs(nome : unknown){
+        console.log('rodando normal ' + nome)
+    }
+
+
+    @checkIsPosted()
+    post(content : string, alreadyPosted : boolean){
+        this.alreadyPosted = true
+        console.log(`post do usuario: ${content}`)
+    }
+}
+
+const user = new Postagem()
+user.onlyCheckArgs('luccas posicao 0')
+
+//example property decorator, interceptar propriedades e nao metodo
+
+function maxChar(limit : number){
+    return function (
+        target : object,
+        propertyKey : string,
+    ){
+        let value : string
+
+        const getter = () => {
+            return value + ' ' + 'o getter está trabalhando'
+        }
+        const setter =(newValue:  string) => {//no ato de alterar o valor
+            console.log(newValue)
+            if(newValue.length > limit){
+                console.log('o valor deve ter no maximo ', limit, 'digitos')
+                return null
+            } else {
+                value = newValue
+            }
+        }
+        Object.defineProperty(target, propertyKey, {
+            get : getter,
+            set : setter
+        })
+    }
+}
+
+class Admin{
+    @maxChar(3)
+    username : string //ao alterar o valor da propriedade, o evento é lancado
+
+    constructor(username : string){
+        this.username = username
+    }
+}
+
+const murilo = new Admin('mlo')
+console.log(murilo.username)
